@@ -1,0 +1,36 @@
+{
+  "name": "discord-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "format": "prettier --write  \"**/*.{js,jsx,json,css,md}\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@react-icons/all-files": "^4.1.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-joi-validation": "^5.0.0",
+    "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.10",
+    "nodemon": "^2.0.13",
+    "prettier": "^2.7.1",
+    "react-icons": "^4.6.0",
+    "socket.io": "^4.4.1",
+    "uuid": "^8.3.2"
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "tabWidth": 2,
+    "singleQuote": true,
+    "printWidth": 100,
+    "arrowParens": "avoid"
+  }
+}
