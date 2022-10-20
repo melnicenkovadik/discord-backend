@@ -1,10 +1,10 @@
-const Message = require('../models/message');
-const Conversation = require('../models/conversation');
-const chatUpdates = require('./updates/chat');
+const Message = require("../models/message");
+const Conversation = require("../models/conversation");
+const chatUpdates = require("./updates/chat");
 
 const directMessageHandler = async (socket, data) => {
   try {
-    console.log('direct message event is being handled');
+    console.log("direct message event is being handled");
 
     const { userId } = socket.user;
     const { receiverUserId, content } = data;
@@ -14,7 +14,7 @@ const directMessageHandler = async (socket, data) => {
       content: content,
       author: userId,
       date: new Date(),
-      type: 'DIRECT',
+      type: "DIRECT",
     });
 
     // find if conversation exist with this two users - if not create new

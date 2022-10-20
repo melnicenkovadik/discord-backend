@@ -1,14 +1,17 @@
-const Conversation = require('../../models/conversation');
-const serverStore = require('../../serverStore');
+const Conversation = require("../../models/conversation");
+const serverStore = require("../../serverStore");
 
-const updateChatHistory = async (conversationId, toSpecifiedSocketId = null) => {
+const updateChatHistory = async (
+  conversationId,
+  toSpecifiedSocketId = null
+) => {
   const conversation = await Conversation.findById(conversationId).populate({
-    path: 'messages',
-    model: 'Message',
+    path: "messages",
+    model: "Message",
     populate: {
-      path: 'author',
-      model: 'User',
-      select: 'username _id',
+      path: "author",
+      model: "User",
+      select: "username _id",
     },
   });
 
@@ -17,7 +20,7 @@ const updateChatHistory = async (conversationId, toSpecifiedSocketId = null) => 
 
     if (toSpecifiedSocketId) {
       // initial update of chat history
-      return io.to(toSpecifiedSocketId).emit('direct-chat-history', {
+      return io.to(toSpecifiedSocketId).emit("direct-chat-history", {
         messages: conversation.messages,
         participants: conversation.participants,
       });
@@ -26,11 +29,13 @@ const updateChatHistory = async (conversationId, toSpecifiedSocketId = null) => 
     // check if users of this conversation are online
     // if yes emit to them update of messages
 
-    conversation.participants.forEach(userId => {
-      const activeConnections = serverStore.getActiveConnections(userId.toString());
+    conversation.participants.forEach((userId) => {
+      const activeConnections = serverStore.getActiveConnections(
+        userId.toString()
+      );
 
-      activeConnections.forEach(socketId => {
-        io.to(socketId).emit('direct-chat-history', {
+      activeConnections.forEach((socketId) => {
+        io.to(socketId).emit("direct-chat-history", {
           messages: conversation.messages,
           participants: conversation.participants,
         });
