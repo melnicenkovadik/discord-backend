@@ -19,8 +19,6 @@ const registerSocketServer = (server) => {
       credentials: true
     },
   });
-  io.origins('*:*');
-
 
   serverStore.setSocketServerInstance(io);
 
