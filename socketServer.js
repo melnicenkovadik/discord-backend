@@ -12,15 +12,14 @@ const roomSignalingDataHandler = require("./socketHandlers/roomSignalingDataHand
 const serverStore = require("./serverStore");
 
 const registerSocketServer = (server) => {
-  let io = require("socket.io")(server);
-  io.set('origins','*');
-  io.set('transports', [
-    'websocket'
-    , 'flashsocket'
-    , 'htmlfile'
-    , 'xhr-polling'
-    , 'jsonp-polling'
-  ]);
+  const io = require("socket.io")(server, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"],
+      credentials: true
+    },
+  });
+  io.origins('*:*');
 
 
   serverStore.setSocketServerInstance(io);

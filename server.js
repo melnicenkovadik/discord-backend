@@ -1,55 +1,36 @@
-const express = require('express');
-const http = require('http');
-const cors = require('cors');
-const mongoose = require('mongoose');
-require('dotenv').config();
+const express = require("express");
+const http = require("http");
+const cors = require("cors");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
-const socketServer = require('./socketServer');
-const authRoutes = require('./routes/authRoutes');
-const friendInvitationRoutes = require('./routes/friendInvitationRoutes');
+const socketServer = require("./socketServer");
+const authRoutes = require("./routes/authRoutes");
+const friendInvitationRoutes = require("./routes/friendInvitationRoutes");
 
 const PORT = process.env.PORT || process.env.API_PORT;
 
 const app = express();
 app.use(express.json());
-app.use(cors(
-  {
-    origin: 'https://discord-frontend-nine.vercel.app',
-    credentials: true,
-  },
-  {
-    origin: 'https://discord-frontend-nine.vercel.app/',
-    credentials: true,
-  },
-  {
-    origin: 'https://discord-frontend-nine.vercel.app/*',
-    credentials: true,
-  },
-  {
-    origin: 'https://discord-frontend-nine.vercel.app/auth/login',
-    credentials: true,
-  },
-  {
-    origin: 'https://discord-frontend-nine.vercel.app/auth/register',
-    credentials: true,
-  },
-  {
-    origin: 'https://discord-backend-test.herokuapp.com/api/friend-invitation/invite',
-    credentials: true,
-  },
-  {
-    origin: 'https://discord-backend-test.herokuapp.com/api/friend-invitation/accept',
-    credentials: true,
-  },
-  {
-    origin: '*',
-    credentials: true,
-  },
-));
+app.use(cors());
+// allow any cors origin for now
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    return res.status(200).json({});
+  }
+  next();
+});
 
 // register the routes
-app.use('/api/auth', authRoutes);
-app.use('/api/friend-invitation', friendInvitationRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/friend-invitation", friendInvitationRoutes);
+
 
 const server = http.createServer(app);
 socketServer.registerSocketServer(server);
@@ -62,6 +43,6 @@ mongoose
     });
   })
   .catch((err) => {
-    console.log('database connection failed. Server not started');
+    console.log("database connection failed. Server not started");
     console.error(err);
   });
