@@ -34,6 +34,10 @@ app.use(cors(
     credentials: true,
   },
   {
+    origin: 'https://discord-backend-test.herokuapp.com/api/friend-invitation/invite',
+    credentials: true,
+  },
+  {
     origin: '*',
     credentials: true,
   },
