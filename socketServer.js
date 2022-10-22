@@ -16,8 +16,10 @@ const registerSocketServer = (server) => {
     cors: {
       origin: "*",
       methods: ["GET", "POST"],
+      credentials: true
     },
   });
+  io.origins('*:*');
 
   serverStore.setSocketServerInstance(io);
 
