@@ -12,8 +12,6 @@ const PORT = process.env.PORT || process.env.API_PORT;
 
 const app = express();
 app.use(express.json());
-app.use(cors());
-// allow any cors origin for now
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -26,6 +24,9 @@ app.use((req, res, next) => {
   }
   next();
 });
+app.use(cors());
+// allow any cors origin for now
+
 
 // register the routes
 app.use("/api/auth", authRoutes);
