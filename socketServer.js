@@ -14,11 +14,12 @@ const serverStore = require("./serverStore");
 const registerSocketServer = (server) => {
   const io = require("socket.io")(server, {
     cors: {
-      origin: "https://discord-backend-test.herokuapp.com/socket.io",
+      origin: '*:*',
       methods: ["GET", "POST"],
       credentials: true
     },
   });
+
 
   serverStore.setSocketServerInstance(io);
 
