@@ -1,5 +1,5 @@
-const serverStore = require("../serverStore");
-const roomsUpdate = require("./updates/rooms");
+const serverStore = require('../serverStore');
+const roomsUpdate = require('./updates/rooms');
 
 const roomLeaveHandler = (socket, data) => {
   const { roomId } = data;
@@ -12,8 +12,8 @@ const roomLeaveHandler = (socket, data) => {
     const updatedActiveRoom = serverStore.getActiveRoom(roomId);
 
     if (updatedActiveRoom) {
-      updatedActiveRoom.participants.forEach((participant) => {
-        socket.to(participant.socketId).emit("room-participant-left", {
+      updatedActiveRoom.participants.forEach(participant => {
+        socket.to(participant.socketId).emit('room-participant-left', {
           connUserSocketId: socket.id,
         });
       });

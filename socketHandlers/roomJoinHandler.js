@@ -1,5 +1,5 @@
-const serverStore = require("../serverStore");
-const roomsUpdates = require("./updates/rooms");
+const serverStore = require('../serverStore');
+const roomsUpdates = require('./updates/rooms');
 
 const roomJoinHandler = (socket, data) => {
   const { roomId } = data;
@@ -13,9 +13,9 @@ const roomJoinHandler = (socket, data) => {
   serverStore.joinActiveRoom(roomId, participantDetails);
 
   // send information to users in room that they should prepare for incoming connection
-  roomDetails.participants.forEach((participant) => {
+  roomDetails.participants.forEach(participant => {
     if (participant.socketId !== participantDetails.socketId) {
-      socket.to(participant.socketId).emit("conn-prepare", {
+      socket.to(participant.socketId).emit('conn-prepare', {
         connUserSocketId: participantDetails.socketId,
       });
     }

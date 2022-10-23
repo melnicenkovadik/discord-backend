@@ -1,6 +1,6 @@
-const FriendInvitation = require("../../models/friendInvitation");
-const User = require("../../models/user");
-const friendsUpdates = require("../../socketHandlers/updates/friends");
+const FriendInvitation = require('../../models/friendInvitation');
+const User = require('../../models/user');
+const friendsUpdates = require('../../socketHandlers/updates/friends');
 
 const postAccept = async (req, res) => {
   try {
@@ -9,7 +9,7 @@ const postAccept = async (req, res) => {
     const invitation = await FriendInvitation.findById(id);
 
     if (!invitation) {
-      return res.status(401).send("Error occured. Please try again");
+      return res.status(401).send('Error occured. Please try again');
     }
 
     const { senderId, receiverId } = invitation;
@@ -34,10 +34,10 @@ const postAccept = async (req, res) => {
     // update list of friends pending invitations
     friendsUpdates.updateFriendsPendingInvitations(receiverId.toString());
 
-    return res.status(200).send("Friend successfuly added");
+    return res.status(200).send('Friend successfuly added');
   } catch (err) {
     console.log(err);
-    return res.status(500).send("Something went wrong. Please try again");
+    return res.status(500).send('Something went wrong. Please try again');
   }
 };
 

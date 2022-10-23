@@ -1,6 +1,6 @@
-const serverStore = require("../serverStore");
-const friendsUpdate = require("../socketHandlers/updates/friends");
-const roomsUpdate = require("./updates/rooms");
+const serverStore = require('../serverStore');
+const friendsUpdate = require('../socketHandlers/updates/friends');
+const roomsUpdate = require('./updates/rooms');
 
 const newConnectionHandler = async (socket, io) => {
   const userDetails = socket.user;
